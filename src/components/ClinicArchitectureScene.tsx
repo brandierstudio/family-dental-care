@@ -115,30 +115,99 @@ export const ClinicArchitectureScene: React.FC<ClinicArchitectureSceneProps> = (
     plinth.position.set(0, -0.18, -0.4);
     worldGroup.add(plinth);
 
-    // 3. Smooth Architectural Warm-Lit Interior Back Wall & Ceiling Soffit
-    const warmWallMat = new THREE.MeshStandardMaterial({
-      color: 0xe69c5a,
-      roughness: 0.42,
-      metalness: 0.06,
-      emissive: 0xd97b38,
-      emissiveIntensity: 0.35,
+    // 3. Smooth Architectural Off-White Back Wall behind the 3D Dentist Chair
+    const offWhiteWallMat = new THREE.MeshStandardMaterial({
+      color: 0xf6f3ec,
+      roughness: 0.38,
+      metalness: 0.04,
+      emissive: 0xfff0d6,
+      emissiveIntensity: 0.28,
     });
     const backWallPanel = new THREE.Mesh(
       new THREE.BoxGeometry(7.6, 2.75, 0.32),
-      warmWallMat
+      offWhiteWallMat
     );
     backWallPanel.position.set(0, 1.36, -1.65);
     worldGroup.add(backWallPanel);
 
-    // Architectural Wood-Slat Vertical Accent Columns inside the Suite
-    for (let s = -5; s <= 5; s++) {
+    // Subtle Warm Wood Vertical Accent Slats on the outer edges of the off-white wall
+    for (const s of [-5, -4, -3, 3, 4, 5]) {
       const slat = new THREE.Mesh(
         new THREE.BoxGeometry(0.14, 2.7, 0.08),
         palette.warmWood
       );
-      slat.position.set(s * 0.65, 1.36, -1.46);
+      slat.position.set(s * 0.68, 1.36, -1.46);
       worldGroup.add(slat);
     }
+
+    // 3B. ROUND 3D BACKLIT LOGO BOARD ("Gool 3D Board") mounted on the off-white wall behind the dentist chair
+    const logoBoardGroup = new THREE.Group();
+    logoBoardGroup.position.set(1.18, 1.62, -1.42);
+    worldGroup.add(logoBoardGroup);
+
+    // Warm Backlit Halo Glow Disc behind the 3D board
+    const haloBackplate = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.92, 0.92, 0.04, 64),
+      new THREE.MeshStandardMaterial({
+        color: 0xfff5e0,
+        emissive: 0xffd28a,
+        emissiveIntensity: 0.95,
+        roughness: 0.2,
+      })
+    );
+    haloBackplate.rotation.x = Math.PI / 2;
+    haloBackplate.position.z = -0.02;
+    logoBoardGroup.add(haloBackplate);
+
+    // 3D Cylindrical Sign Drum (extruded 3D depth off the wall)
+    const signDrum = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.84, 0.84, 0.16, 64),
+      new THREE.MeshStandardMaterial({
+        color: 0x0c0c10,
+        roughness: 0.24,
+        metalness: 0.35,
+      })
+    );
+    signDrum.rotation.x = Math.PI / 2;
+    signDrum.position.z = 0.06;
+    logoBoardGroup.add(signDrum);
+
+    // Brushed Gold/Chrome 3D Outer Bezel Ring around the round board
+    const signBezel = new THREE.Mesh(
+      new THREE.TorusGeometry(0.85, 0.036, 20, 64),
+      palette.goldAnodized
+    );
+    signBezel.position.z = 0.13;
+    logoBoardGroup.add(signBezel);
+
+    // Front Circular Face with the uploaded Family Dental Care Logo Texture
+    const logoFaceGeo = new THREE.CircleGeometry(0.82, 64);
+    // Slightly inset UVs (0.95) so the circular mesh samples strictly inside the black circle of the JPG
+    const uvAttr = logoFaceGeo.attributes.uv;
+    for (let i = 0; i < uvAttr.count; i++) {
+      const u = (uvAttr.getX(i) - 0.5) * 0.95 + 0.5;
+      const v = (uvAttr.getY(i) - 0.5) * 0.95 + 0.5;
+      uvAttr.setXY(i, u, v);
+    }
+
+    const logoFaceMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+    });
+    const logoFaceMesh = new THREE.Mesh(logoFaceGeo, logoFaceMat);
+    logoFaceMesh.position.z = 0.145;
+    logoBoardGroup.add(logoFaceMesh);
+
+    const textureLoader = new THREE.TextureLoader();
+    const logoTexture = textureLoader.load(
+      '/assets/aistudio/1793466847665_d702d013.jpg',
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.needsUpdate = true;
+        logoFaceMat.map = tex;
+        logoFaceMat.needsUpdate = true;
+        requestRender();
+      }
+    );
 
     // 4. Sweeping Futuristic Curved White Ceramic Cantilever Roof Canopy
     const roofCanopy = new THREE.Mesh(
@@ -168,9 +237,9 @@ export const ClinicArchitectureScene: React.FC<ClinicArchitectureSceneProps> = (
     coveStrip.position.set(0, 2.64, -0.35);
     worldGroup.add(coveStrip);
 
-    // 5. 10-Part Ergonomic Dental Chair + Overhead Halo Light + Suite Cabinet (Centered inside the pavilion)
+    // 5. 10-Part Ergonomic Dental Chair + Overhead Halo Light + Suite Cabinet
     const { root: suiteGroup } = create3DDentalChairSuite(palette);
-    suiteGroup.position.set(-0.15, 0.02, 0.35);
+    suiteGroup.position.set(-0.62, 0.02, 0.35);
     worldGroup.add(suiteGroup);
 
     // 6. Panoramic Curved Glass Curtain Wall Mullions
@@ -280,6 +349,7 @@ export const ClinicArchitectureScene: React.FC<ClinicArchitectureSceneProps> = (
       clearTimeout(frameId);
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('resize', onResize);
+      logoTexture.dispose();
       palette.dispose();
       renderer.dispose();
     };

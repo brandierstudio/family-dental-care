@@ -120,7 +120,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
                  role="separator"
               />
 
-              {/* Round Doctor Avatar */}
+              {/* Round Clinic Logo / Doctor Avatar */}
               <div className="relative flex items-center">
                 <button
                   type="button"
@@ -129,9 +129,13 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
                   onClick={() => togglePopover('doctor')}
                   onMouseEnter={() => setHoveredItem('doctor')}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#5CD6C0] flex items-center justify-center bg-[#1E1750] text-white font-display font-semibold text-xs shadow-[inset_0_2px_6px_rgba(255,255,255,0.45)] transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-[#F28B5B] cursor-pointer"
+                  className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#5CD6C0] flex items-center justify-center bg-black text-white shadow-md transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-[#F28B5B] cursor-pointer"
                 >
-                  <span>FD</span>
+                  <img
+                    src="/assets/aistudio/1793466847665_d702d013.jpg"
+                    alt="Family Dental Care Logo"
+                    className="w-full h-full object-cover scale-105 rounded-full"
+                  />
                 </button>
 
                 {hoveredItem === 'doctor' && openPopover !== 'doctor' && (

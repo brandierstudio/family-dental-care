@@ -175,23 +175,18 @@ export const HeroCards: React.FC<HeroCardsProps> = ({
         transition={{ duration: 0.65, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="relative flex flex-col sm:flex-row items-center sm:items-end gap-4 pointer-events-auto"
       >
-        {/* 7. BRAND BADGE: 88px circle, indigo #1E1750, 3D specular tooth-mark badge */}
+        {/* 7. BRAND BADGE: 88px circle with official Family Dental Care logo overlapping the gap */}
         <button
           type="button"
           onClick={onExploreTreatments}
-          aria-label="Family Dental Care Karachi — scroll to 3D treatment studio"
-          className="lg:-mr-7 lg:mb-6 z-20 w-[88px] h-[88px] rounded-full bg-[#1E1750] text-white flex flex-col items-center justify-center shadow-[0_20px_45px_rgba(12,10,40,0.6)] ring-8 ring-white/25 dark:ring-white/10 transition-transform duration-300 hover:scale-105 cursor-pointer shrink-0"
-          style={{
-            background:
-              'radial-gradient(circle at 32% 28%, #3A2F8F 0%, #1E1750 65%, #110D30 100%)',
-          }}
+          aria-label="Family Dental Care Karachi — scroll to treatment services"
+          className="relative lg:-mr-7 lg:mb-6 z-20 w-[88px] h-[88px] rounded-full bg-black text-white flex items-center justify-center shadow-[0_20px_45px_rgba(12,10,40,0.65)] ring-8 ring-white/30 dark:ring-white/15 border-2 border-white/80 transition-transform duration-300 hover:scale-105 cursor-pointer shrink-0 overflow-hidden"
         >
-          <span className="font-display font-semibold text-2xl tracking-tight text-white leading-none">
-            FDC
-          </span>
-          <span className="mt-1 text-[10px] font-medium text-[#5CD6C0] tracking-wide">
-            4.9 ★ KHI
-          </span>
+          <img
+            src="/assets/aistudio/1793466847665_d702d013.jpg"
+            alt="Family Dental Care Official Logo"
+            className="w-full h-full object-cover scale-105 rounded-full"
+          />
         </button>
 
         {/* 6. RIGHT GLASS CARD (frosted, ~372px wide, bottom-right) */}
