@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="warmBackdrop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DFDCD5" />
+      <stop offset="45%" stop-color="#D4CFC7" />
+      <stop offset="100%" stop-color="#C7C1B8" />
+    </linearGradient>
+    <radialGradient id="softGlow1" cx="25%" cy="20%" r="55%">
+      <stop offset="0%" stop-color="#EAE6DF" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#D4CFC7" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="softGlow2" cx="80%" cy="75%" r="50%">
+      <stop offset="0%" stop-color="#C8C3BC" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#C7C1B8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#warmBackdrop)" />
+  <rect width="1600" height="1000" fill="url(#softGlow1)" />
+  <rect width="1600" height="1000" fill="url(#softGlow2)" />
+  <path d="M0,680 Q420,560 880,640 T1600,580 L1600,1000 L0,1000 Z" fill="#CAC4BB" opacity="0.45" />
+  <path d="M0,780 Q560,710 1120,760 T1600,720 L1600,1000 L0,1000 Z" fill="#BEB8AE" opacity="0.4" />
+</svg>

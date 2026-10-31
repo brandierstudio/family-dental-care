@@ -1,0 +1,8 @@
+{
+  "name": "Lumina Dental",
+  "description": "A floating liquid-glass showcase and interactive treatment explorer for Lumina Dental clinic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

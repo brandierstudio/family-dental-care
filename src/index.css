@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-backdrop: #13112B;
+    --ceramic-surface: #F6F7FC;
+    --glass-bg: rgba(244, 246, 255, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.72);
+    --text-primary: #1B1B2F;
+    --text-secondary: rgba(27, 27, 47, 0.65);
+    --accent-indigo: #1E1750;
+    --accent-coral: #F28B5B;
+    --accent-mint: #5CD6C0;
+  }
+
+  .dark {
+    --bg-backdrop: #0A0B18;
+    --ceramic-surface: #171B34;
+    --glass-bg: rgba(22, 26, 56, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.16);
+    --text-primary: #F4F6FF;
+    --text-secondary: rgba(244, 246, 255, 0.7);
+    --accent-indigo: #2D2470;
+    --accent-coral: #F28B5B;
+    --accent-mint: #5CD6C0;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    scroll-behavior: smooth;
+    color: var(--text-primary);
+    background-color: var(--bg-backdrop);
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+.font-display {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-sans-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* High-performance Liquid Glass Surface (No CSS backdrop-filter over active WebGL canvas) */
+.liquid-glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 24px 54px rgba(10, 10, 35, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.65);
+}
+
+.dark .liquid-glass {
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.14);
+}
+
+/* Ceramic Pill / Solid Surface */
+.ceramic-surface {
+  background-color: var(--ceramic-surface);
+  color: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide scrollbar for clean horizontal chip scroll on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
